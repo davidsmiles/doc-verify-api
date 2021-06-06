@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+
+<h2>Admin Portal</h2>
+
+<form action="/action_page.php" method="post">
+  <div class="imgcontainer">
+    <img src="{{url_for('static', filename='images/img_avatar2.png')}}" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label class="mr-2">Upload Students Record:</label>
+    <input type="file" name="file">
+
+    <button type="submit">Generate Transcript</button>
+  </div>
+
+</form>
+
+</body>
+</html>

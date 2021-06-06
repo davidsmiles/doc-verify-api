@@ -1,0 +1,47 @@
+{
+    "user_username_exists": "A user with that username already exists.",
+    "user_email_exists": "A user with that email already exists.",
+    "user_not_found": "User not found.",
+    "email_invalid": "The email entered is not the right email format",
+    "user_deleted": "User deleted.",
+    "user_invalid_credentials": "Invalid credentials!",
+    "user_logged_out": "User successfully logged out.",
+    "user_not_confirmed": "Pending email confirmation",
+    "user_error_creating": "Internal server error. Failed to create user.",
+    "user_registered": "Account created successfully, an email with an activation link has been sent to your email address, please check.",
+    "user_profile_updated": "Profile update successfully",
+    "user_confirmed": "Confirmed",
+
+    "out_of_list_index": "Position given is larger than actual list",
+
+    "confirmation_not_found": "Confirmation reference not found.",
+    "confirmation_link_expired": "The link has expired.",
+    "confirmation_already_confirmed": "Registration has already been confirmed.",
+    "confirmation_resend_fail": "Internal server error. Failed to resend confirmation email.",
+    "confirmation_resend_successful": "E-mail confirmation successfully re-sent.",
+    "confirm_your_account": "Confirm your bla bla Account",
+    "confirm_mail_message": "To finish creating your bla bla account, confirm your email address by clicking this link:\n\n {}",
+
+    "image_uploaded": "Image '{}' uploaded.",
+    "image_illegal_extension": "Extension '{}' is not allowed.",
+    "image_illegal_file_name": "Illegal filename '{}' requested.",
+    "image_not_found": "Image '{}' not found.",
+    "image_deleted": "Image '{}' deleted.",
+    "image_delete_failed": "Internal server error! Failed to delete image.",
+    "avatar_delete_failed": "Internal server error! Failed to delete avatar.",
+    "avatar_uploaded": "Avatar '{}' uploaded.",
+    "avatar_not_found": "Avatar not found.",
+
+    "password_reset_not_found": "Password reset reference not found.",
+    "password_reset_link_expired": "The link has expired.",
+    "password_reset_link_used": "This link has already been used to reset a password.",
+    "reset_your_password": "Reset your password",
+    "password_reset_link_sent": "Reset password link sent",
+    "password_reset_successful": "Your password was reset",
+    "password_reset_mail_1": "We received a request to reset your password. Please create a new password by clicking this link:\n {} \nThis request will expire in 1 hour.\n\nnIf you did not request this change, no changes have been made to your account. Please Ignore.",
+
+    "user_cart_is_empty": "cart is empty, continue shopping and add items to it",
+    "product_not_in_cart": "product was not found in cart",
+
+    "unexpected_user_data": "Ooops, json data you sent does not match some fields"
+}
