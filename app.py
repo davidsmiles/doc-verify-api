@@ -1,22 +1,19 @@
 import os
 
-import PyPDF2
-from dotenv import load_dotenv
-from flask import Flask, render_template, request, url_for
 import qrcode
+from dotenv import load_dotenv
+from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from qrcode.constants import ERROR_CORRECT_L
 
 from extensions import *
-from helper import generate_keys, load_keys, sign, verify
+from helper import load_keys, sign, verify
 from libs.errors import errors
-from resources.keys import PrivateKey, PublicKey
-from resources.login import Login
-from resources.signature import Signature
-from resources.signup import SignUp
-from resources.verification import Verification
+from resources.routes import initialize_routes
 
 app = Flask(__name__)
+jwt = JWTManager(app)
 
 load_dotenv('.env')
 app.config.from_object(os.environ['APPLICATION_SETTINGS'])
@@ -40,7 +37,6 @@ qr.make(fit=True)
 img = qr.make_image(fill_color="black", back_color="white")
 img.save('advanced.png')
 
-
 #
 # input_file = 'theo-yranscript.pdf'
 # watermark = 'advanced.pdf'
@@ -59,14 +55,12 @@ img.save('advanced.png')
 #             p.write(output)
 
 
-api.add_resource(SignUp, '/signup')
-api.add_resource(Login, '/login')
-api.add_resource(PrivateKey, '/privatekey')
-api.add_resource(PublicKey, '/publickey')
-api.add_resource(Signature, '/sign')
-api.add_resource(Verification, '/verify')
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 
 if __name__ == '__main__':
     initialize_extensions(app)
+    initialize_routes(api)
     app.run(debug=True)

@@ -11,20 +11,18 @@ from helper import sign
 class Signature(Resource):
 
     @classmethod
-    def get(cls):
-        headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('sign.html'), 200, headers)
-
-    @classmethod
     def post(cls):
-        private_key = request.files['private_key']
+        print(request.files)
+
+        data = request.files
+        private_key = data['private_key']
         private_key = serialization.load_pem_private_key(
             private_key.read(),
             password=None,
             backend=default_backend()
         )
 
-        document = request.files['document'].read()
+        document = data['document'].read()
         signature = sign(private_key, document)
 
         # Save signature to Disk

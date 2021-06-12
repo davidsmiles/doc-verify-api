@@ -11,9 +11,8 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    MONGODB_SETTINGS = {
-        'host': os.environ.get("PROD_DATABASE_URL", "mongodb://localhost:27017/docverify")
-    }
+    SQLALCHEMY_DATABASE_URI = os.environ.get("ELEPHANT_DATABASE_URL", "postgresql://david:password@localhost:5432/david")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_BLACKLIST_ENABLED = True  # enable blacklist feature
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']  # allow blacklisting for access and refresh tokens
 

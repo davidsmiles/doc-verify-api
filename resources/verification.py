@@ -9,11 +9,6 @@ from flask_restful import Resource
 class Verification(Resource):
 
     @classmethod
-    def get(cls):
-        headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('verify.html'), 200, headers)
-
-    @classmethod
     def post(cls):
 
         public_key = request.files['public_key']
@@ -37,7 +32,8 @@ class Verification(Resource):
                 hashes.SHA256()
             )
 
-            return make_response(render_template('valid.html'), 200, headers)
+            return {'message': 'valid!'}, 200
         except InvalidSignature:
-            return make_response(render_template('invalid.html'), 401, headers)
+            return {'message': 'invalid'}, 401
+
 

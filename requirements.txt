@@ -1,3 +1,12 @@
 qrcode[pil]
-flask
-flask-restful
+Flask
+Flask-JWT-Extended
+Flask-RESTful
+Flask-SQLAlchemy
+flask-marshmallow
+marshmallow-sqlalchemy
+sendgrid
+requests
+python-dotenv
+uwsgi
+psycopg2-binary
