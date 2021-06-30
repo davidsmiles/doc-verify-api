@@ -7,14 +7,15 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 from extensions import db
 
 
-class UserModel(db.Model):
-    __tablename__ = 'users'
+class AdminModel(db.Model):
+    __tablename__ = 'admins'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(80), nullable=True, unique=True)
     password = db.Column(db.String(100), nullable=True)
-    profile = db.Column(db.String(100), nullable=True)
+    institution = db.Column(db.String(100), nullable=True)
+    inst_code = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.Integer)
 
     def __init__(self, **kwargs):
@@ -23,15 +24,15 @@ class UserModel(db.Model):
         self.created_at = time()
 
     @classmethod
-    def find_by_email(cls, email) -> "UserModel":
+    def find_by_email(cls, email) -> "AdminModel":
         return cls.query.filter_by(email=email).first()
 
     @classmethod
-    def find_by_userid(cls, user_id) -> "UserModel":
+    def find_by_userid(cls, user_id) -> "AdminModel":
         return cls.query.filter_by(user_id=user_id).first()
 
     @classmethod
-    def find_all(cls) -> List["UserModel"]:
+    def find_all(cls) -> List["AdminModel"]:
         return cls.query.all()
 
     @classmethod

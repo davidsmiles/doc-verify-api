@@ -34,6 +34,7 @@ class PublicKey(Resource):
 
     @classmethod
     def get(cls):
+        print(request.files)
         private_key = request.files['private_key']
         private_key = serialization.load_pem_private_key(
             private_key.read(),

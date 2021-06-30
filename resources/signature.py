@@ -2,7 +2,7 @@ import io
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
-from flask import request, send_file, make_response, render_template
+from flask import request, send_file
 from flask_restful import Resource
 
 from helper import sign
