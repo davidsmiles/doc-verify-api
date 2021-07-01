@@ -1,7 +1,12 @@
+import io
+import qrcode
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from PyPDF2 import PdfFileWriter, PdfFileReader
+from qrcode import ERROR_CORRECT_L
+from reportlab.pdfgen import canvas
 
 
 def generate_keys():
@@ -76,4 +81,56 @@ def verify(public_key, signature, document):
         return True
     except InvalidSignature:
         return False
+
+
+def add_qr_to_doc(filename, matno):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=ERROR_CORRECT_L,
+        box_size=20,
+        border=1
+    )
+
+    qr.add_data("http://localhost:8080/verify/user")
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save('advanced.png')
+
+    out_pdf_file = f'{matno}-file.pdf'
+    img_file = 'advanced.png'
+
+    packet = io.BytesIO()
+    can = canvas.Canvas(packet)
+    # can.drawString(10, 100, "Hello world")
+    x_start = 5
+    y_start = 5
+    can.drawImage(img_file, x_start, y_start, width=100, height=100,
+                  preserveAspectRatio=True, anchor='sw', mask='auto')
+    can.showPage()
+    can.showPage()
+    can.showPage()
+    can.save()
+
+    # move to the beginning of the StringIO buffer
+    packet.seek(0)
+
+    new_pdf = PdfFileReader(packet)
+
+    # read the existing PDF
+    existing_pdf = PdfFileReader(open(filename, "rb"))
+    output = PdfFileWriter()
+
+    for i in range(len(existing_pdf.pages)):
+        page = existing_pdf.getPage(i)
+        page.mergePage(new_pdf.getPage(i))
+        output.addPage(page)
+
+    outputStream = open(out_pdf_file, "wb")
+    output.write(outputStream)
+    outputStream.close()
+
+    import os
+    if os.path.exists(filename):
+        os.remove(filename)
 
