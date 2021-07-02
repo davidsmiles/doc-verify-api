@@ -21,11 +21,15 @@ class Signature(Resource):
         data = request.files
         data_f = request.form
 
-        photo_path = f'images/{data_f["matric_no"]}.png'
-        data['photograph'].save(photo_path)
+        student = StudentModel.find_by_docid(data_f['doc_id'])
+        if student:
+            return student_schema.dump(student), 401
 
         student = StudentModel(**data_f)
         student.save_to_db()
+
+        photo_path = f'images/{data_f["doc_id"]}.png'
+        data['photograph'].save(photo_path)
 
         with open("privatekey.cer", "rb") as key_file:
             private_key = serialization.load_pem_private_key(
@@ -35,7 +39,7 @@ class Signature(Resource):
             )
 
         document = data['document']
-        filename = f"{data_f['matric_no']}"
+        filename = f"{data_f['doc_id']}"
         document.save(filename)
 
         helper.add_qr_to_doc(request.url_root[:-1], filename)
@@ -46,9 +50,10 @@ class Signature(Resource):
             sig.write(signature)
             sig.close()
 
-        return {
-            'message': 'Signing Successful',
-            'doc_id': filename
-        }, 200
+        return send_file(
+            io.BytesIO(open(f'files/{filename}-file.pdf', 'rb').read()),
+            attachment_filename=f'files/{filename}-file.pdf',
+            mimetype='application/pdf'
+        )
 
 

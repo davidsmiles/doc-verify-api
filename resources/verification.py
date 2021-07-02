@@ -44,7 +44,7 @@ class Verification(Resource):
                 hashes.SHA256()
             )
 
-            student = StudentModel.find_by_matno(doc_id)
+            student = StudentModel.find_by_docid(doc_id)
             if not student:
                 return {'message': gettext("user_not_found")}, 404
 
@@ -56,8 +56,8 @@ class Verification(Resource):
 class StudentImage(Resource):
 
     @classmethod
-    def get(cls, matric_no):
-        filename = f'{matric_no}.png'
+    def get(cls, doc_id):
+        filename = f'{doc_id}.png'
         return send_file(
             io.BytesIO(open(f'images/{filename}', 'rb').read()),
             attachment_filename=filename,

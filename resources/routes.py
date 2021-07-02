@@ -14,5 +14,5 @@ def initialize_routes(api):
     api.add_resource(PublicKey, '/publickey')
     api.add_resource(Signature, '/sign')
     api.add_resource(Verification, '/verify')
-    api.add_resource(StudentImage, '/student/<matric_no>/image')
+    api.add_resource(StudentImage, '/student/<doc_id>/image')
 
