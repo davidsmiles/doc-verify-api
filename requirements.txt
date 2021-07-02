@@ -1,4 +1,7 @@
 qrcode[pil]
+flask-bcrypt
+flask-mongoengine
+cryptography
 Flask
 Flask-JWT-Extended
 Flask-RESTful
