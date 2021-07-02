@@ -23,6 +23,9 @@ class PrivateKey(Resource):
             encryption_algorithm=serialization.NoEncryption()
         )
 
+        with open('privatekey.cer', 'wb') as f:
+            f.write(pem)
+
         return send_file(
             io.BytesIO(pem),
             attachment_filename='privatekey.cer',
@@ -34,7 +37,7 @@ class PublicKey(Resource):
 
     @classmethod
     def get(cls):
-        print(request.files)
+        # print(request.files)
         private_key = request.files['private_key']
         private_key = serialization.load_pem_private_key(
             private_key.read(),
@@ -47,6 +50,10 @@ class PublicKey(Resource):
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
+
+        with open('publickey.cer', 'wb') as f:
+            f.write(pub)
+            f.close()
 
         return send_file(
             io.BytesIO(pub),

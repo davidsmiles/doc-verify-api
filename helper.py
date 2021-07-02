@@ -83,7 +83,7 @@ def verify(public_key, signature, document):
         return False
 
 
-def add_qr_to_doc(filename, matno):
+def add_qr_to_doc(domain, filename):
     qr = qrcode.QRCode(
         version=1,
         error_correction=ERROR_CORRECT_L,
@@ -91,13 +91,13 @@ def add_qr_to_doc(filename, matno):
         border=1
     )
 
-    qr.add_data("http://localhost:8080/verify/user")
+    qr.add_data(f"{domain}/verify/user?{filename}")
     qr.make(fit=True)
 
     img = qr.make_image(fill_color="black", back_color="white")
     img.save('advanced.png')
 
-    out_pdf_file = f'{matno}-file.pdf'
+    out_pdf_file = f'files/{filename}-file.pdf'
     img_file = 'advanced.png'
 
     packet = io.BytesIO()
