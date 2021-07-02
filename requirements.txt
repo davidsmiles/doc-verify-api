@@ -10,3 +10,7 @@ requests
 python-dotenv
 uwsgi
 psycopg2-binary
+psycopg2==2.7.7
+PyPDF2==1.26.0
+reportlab==3.5.68
+Pillow==8.2.0

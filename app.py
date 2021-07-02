@@ -30,4 +30,4 @@ def create_tables():
 if __name__ == '__main__':
     initialize_extensions(app)
     initialize_routes(api)
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
